@@ -1,1 +1,18 @@
+{
+  "name": "fortnite-optimizer-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Fortnite Optimizer license validation and admin panel",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "author": "Deyy",
+  "license": "MIT"
+}
 
