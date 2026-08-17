@@ -6,12 +6,20 @@
         body { font-family: Arial; background: #111; color: #fff; padding: 20px; }
         button { padding: 10px; margin: 5px; cursor: pointer; }
         input { padding: 8px; margin: 5px; }
-        .box { background: #222; padding: 20px; border-radius: 10px; }
+        .box { background: #222; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <h1>Optimizer Admin Panel</h1>
+
+<div class="box">
+    <h2>Login</h2>
+    <input id="username" placeholder="Username">
+    <input id="password" placeholder="Password" type="password">
+    <button onclick="login()">Login</button>
+    <p id="loginResult"></p>
+</div>
 
 <div class="box">
     <h2>Generate License Key</h2>
@@ -40,43 +48,79 @@
 </div>
 
 <script>
-const API = "https://fortnite-optimizer-backend.onrender.com";
+const API = "https://YOUR-RENDER-URL.onrender.com";
+let token = "";
 
-function generateKey() {
-    fetch(API + "/api/admin/generate-key", { method: "POST" })
-        .then(r => r.json())
-        .then(d => document.getElementById("genResult").innerText = "New Key: " + d.key);
+// LOGIN
+function login() {
+    fetch(API + "/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
+        })
+    })
+    .then(r => r.json())
+    .then(d => {
+        if (d.success) {
+            token = d.token;
+            document.getElementById("loginResult").innerText = "Login successful!";
+        } else {
+            document.getElementById("loginResult").innerText = "Login failed.";
+        }
+    });
 }
 
+// GENERATE KEY
+function generateKey() {
+    fetch(API + "/api/admin/generate-key", {
+        method: "POST",
+        headers: { "Authorization": "Bearer " + token }
+    })
+    .then(r => r.json())
+    .then(d => document.getElementById("genResult").innerText = "New Key: " + d.key);
+}
+
+// DISABLE KEY
 function disableKey() {
     const key = document.getElementById("disableKey").value;
     fetch(API + "/api/admin/disable-key", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({ key })
     })
     .then(r => r.json())
     .then(d => document.getElementById("disableResult").innerText = d.success ? "Disabled" : "Key not found");
 }
 
+// RESET HWID
 function resetHWID() {
     const key = document.getElementById("resetKey").value;
     fetch(API + "/api/admin/reset-hwid", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({ key })
     })
     .then(r => r.json())
     .then(d => document.getElementById("resetResult").innerText = d.success ? "HWID Reset" : "Key not found");
 }
 
+// LIST KEYS
 function loadKeys() {
-    fetch(API + "/api/admin/list-keys")
-        .then(r => r.json())
-        .then(d => document.getElementById("keyList").innerText = JSON.stringify(d, null, 2));
+    fetch(API + "/api/admin/list-keys", {
+        headers: { "Authorization": "Bearer " + token }
+    })
+    .then(r => r.json())
+    .then(d => document.getElementById("keyList").innerText = JSON.stringify(d, null, 2));
 }
 </script>
 
 </body>
 </html>
-
