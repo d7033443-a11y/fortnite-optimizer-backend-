@@ -1,1 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Optimizer Admin Panel</title>
+    <style>
+        body { font-family: Arial; background: #111; color: #fff; padding: 20px; }
+        button { padding: 10px; margin: 5px; cursor: pointer; }
+        input { padding: 8px; margin: 5px; }
+        .box { background: #222; padding: 20px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<h1>Optimizer Admin Panel</h1>
+
+<div class="box">
+    <h2>Generate License Key</h2>
+    <button onclick="generateKey()">Generate</button>
+    <p id="genResult"></p>
+</div>
+
+<div class="box">
+    <h2>Disable Key</h2>
+    <input id="disableKey" placeholder="Enter key">
+    <button onclick="disableKey()">Disable</button>
+    <p id="disableResult"></p>
+</div>
+
+<div class="box">
+    <h2>Reset HWID</h2>
+    <input id="resetKey" placeholder="Enter key">
+    <button onclick="resetHWID()">Reset</button>
+    <p id="resetResult"></p>
+</div>
+
+<div class="box">
+    <h2>All Keys</h2>
+    <button onclick="loadKeys()">Load Keys</button>
+    <pre id="keyList"></pre>
+</div>
+
+<script>
+const API = "https://YOUR-RENDER-URL.onrender.com";
+
+function generateKey() {
+    fetch(API + "/api/admin/generate-key", { method: "POST" })
+        .then(r => r.json())
+        .then(d => document.getElementById("genResult").innerText = "New Key: " + d.key);
+}
+
+function disableKey() {
+    const key = document.getElementById("disableKey").value;
+    fetch(API + "/api/admin/disable-key", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key })
+    })
+    .then(r => r.json())
+    .then(d => document.getElementById("disableResult").innerText = d.success ? "Disabled" : "Key not found");
+}
+
+function resetHWID() {
+    const key = document.getElementById("resetKey").value;
+    fetch(API + "/api/admin/reset-hwid", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key })
+    })
+    .then(r => r.json())
+    .then(d => document.getElementById("resetResult").innerText = d.success ? "HWID Reset" : "Key not found");
+}
+
+function loadKeys() {
+    fetch(API + "/api/admin/list-keys")
+        .then(r => r.json())
+        .then(d => document.getElementById("keyList").innerText = JSON.stringify(d, null, 2));
+}
+</script>
+
+</body>
+</html>
 
