@@ -1,125 +1,234 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Optimizer Admin Panel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercify Tweaks – Game Optimization Utility</title>
+
     <style>
-        body { font-family: Arial; background: #111; color: #fff; padding: 20px; }
-        button { padding: 10px; margin: 5px; cursor: pointer; }
-        input { padding: 8px; margin: 5px; }
-        .box { background: #222; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #1a1a1d;
+            color: #e6e6e6;
+        }
+
+        header {
+            background: #232329;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #3a3a45;
+        }
+
+        header h1 {
+            color: #4da3ff;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        nav a {
+            color: #e6e6e6;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #4da3ff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 20px;
+            background: linear-gradient(135deg, #232329, #1a1a1d);
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            color: #4da3ff;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: auto;
+            color: #cfcfcf;
+        }
+
+        .hero button {
+            margin-top: 40px;
+            padding: 15px 40px;
+            font-size: 18px;
+            background: #4da3ff;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .hero button:hover {
+            background: #2f7ed1;
+        }
+
+        .section {
+            padding: 80px 40px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .section h3 {
+            font-size: 32px;
+            color: #4da3ff;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-box {
+            background: #232329;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #3a3a45;
+        }
+
+        .feature-box h4 {
+            color: #4da3ff;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            color: #cfcfcf;
+        }
+
+        .pricing {
+            text-align: center;
+        }
+
+        .price-box {
+            background: #232329;
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid #3a3a45;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .price-box h4 {
+            font-size: 28px;
+            color: #4da3ff;
+        }
+
+        .price-box p {
+            font-size: 18px;
+            color: #cfcfcf;
+        }
+
+        .price-box button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #4da3ff;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #232329;
+            padding: 20px;
+            text-align: center;
+            color: #cfcfcf;
+            border-top: 2px solid #3a3a45;
+        }
+
+        footer a {
+            color: #4da3ff;
+            text-decoration: none;
+        }
     </style>
 </head>
+
 <body>
 
-<h1>Optimizer Admin Panel</h1>
+<header>
+    <h1>Mercify Tweaks</h1>
+    <nav>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#download">Download</a>
+    </nav>
+</header>
 
-<div class="box">
-    <h2>Login</h2>
-    <input id="username" placeholder="Username">
-    <input id="password" placeholder="Password" type="password">
-    <button onclick="login()">Login</button>
-    <p id="loginResult"></p>
-</div>
+<section class="hero">
+    <h2>Boost Your Game Performance</h2>
+    <p>Mercify Tweaks is a modern optimization utility designed to improve FPS, reduce latency, and enhance system responsiveness for competitive gaming.</p>
+    <button onclick="document.getElementById('download').scrollIntoView({behavior:'smooth'})">Download Now</button>
+</section>
 
-<div class="box">
-    <h2>Generate License Key</h2>
-    <button onclick="generateKey()">Generate</button>
-    <p id="genResult"></p>
-</div>
+<section class="section" id="features">
+    <h3>Features</h3>
 
-<div class="box">
-    <h2>Disable Key</h2>
-    <input id="disableKey" placeholder="Enter key">
-    <button onclick="disableKey()">Disable</button>
-    <p id="disableResult"></p>
-</div>
+    <div class="features">
+        <div class="feature-box">
+            <h4>Network Optimization</h4>
+            <p>Reduce ping, improve routing, and stabilize your connection with safe, system-level tweaks.</p>
+        </div>
 
-<div class="box">
-    <h2>Reset HWID</h2>
-    <input id="resetKey" placeholder="Enter key">
-    <button onclick="resetHWID()">Reset</button>
-    <p id="resetResult"></p>
-</div>
+        <div class="feature-box">
+            <h4>System Cleanup</h4>
+            <p>Clear temporary files, optimize services, and improve system responsiveness.</p>
+        </div>
 
-<div class="box">
-    <h2>All Keys</h2>
-    <button onclick="loadKeys()">Load Keys</button>
-    <pre id="keyList"></pre>
-</div>
+        <div class="feature-box">
+            <h4>Fortnite Config Tweaks</h4>
+            <p>Automatically apply performance-focused settings to Fortnite’s public config files.</p>
+        </div>
+
+        <div class="feature-box">
+            <h4>License Protection</h4>
+            <p>Secure online license validation with HWID binding and admin controls.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section pricing" id="pricing">
+    <h3>Pricing</h3>
+
+    <div class="price-box">
+        <h4>Mercify Tweaks – Lifetime</h4>
+        <p>One-time purchase. Unlimited updates.</p>
+        <button>Purchase</button>
+    </div>
+</section>
+
+<section class="section" id="download">
+    <h3>Download Mercify Tweaks</h3>
+    <p>Click below to download the latest version of Mercify Tweaks.</p>
+    <button>Download Installer</button>
+</section>
+
+<footer>
+    © 2026 Mercify Tweaks • <a href="#">Privacy Policy</a>
+</footer>
 
 <script>
-const API = "https://YOUR-RENDER-URL.onrender.com";
-let token = "";
-
-// LOGIN
-function login() {
-    fetch(API + "/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            username: document.getElementById("username").value,
-            password: document.getElementById("password").value
-        })
-    })
-    .then(r => r.json())
-    .then(d => {
-        if (d.success) {
-            token = d.token;
-            document.getElementById("loginResult").innerText = "Login successful!";
-        } else {
-            document.getElementById("loginResult").innerText = "Login failed.";
-        }
+    // Smooth scroll for nav links
+    document.querySelectorAll("nav a").forEach(link => {
+        link.addEventListener("click", e => {
+            e.preventDefault();
+            document.querySelector(link.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
+        });
     });
-}
-
-// GENERATE KEY
-function generateKey() {
-    fetch(API + "/api/admin/generate-key", {
-        method: "POST",
-        headers: { "Authorization": "Bearer " + token }
-    })
-    .then(r => r.json())
-    .then(d => document.getElementById("genResult").innerText = "New Key: " + d.key);
-}
-
-// DISABLE KEY
-function disableKey() {
-    const key = document.getElementById("disableKey").value;
-    fetch(API + "/api/admin/disable-key", {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + token,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ key })
-    })
-    .then(r => r.json())
-    .then(d => document.getElementById("disableResult").innerText = d.success ? "Disabled" : "Key not found");
-}
-
-// RESET HWID
-function resetHWID() {
-    const key = document.getElementById("resetKey").value;
-    fetch(API + "/api/admin/reset-hwid", {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + token,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ key })
-    })
-    .then(r => r.json())
-    .then(d => document.getElementById("resetResult").innerText = d.success ? "HWID Reset" : "Key not found");
-}
-
-// LIST KEYS
-function loadKeys() {
-    fetch(API + "/api/admin/list-keys", {
-        headers: { "Authorization": "Bearer " + token }
-    })
-    .then(r => r.json())
-    .then(d => document.getElementById("keyList").innerText = JSON.stringify(d, null, 2));
-}
 </script>
 
 </body>
